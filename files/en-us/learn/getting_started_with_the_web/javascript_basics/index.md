@@ -407,11 +407,15 @@ Next, let's change the page title to a personalized welcome message when the use
 3.  Add the function below to set the personalized greeting. This won't do anything yet, but this will change soon.
 
     ```js
-    function setUserName() {
-      let myName = prompt('Please enter your name.');
-      localStorage.setItem('name', myName);
-      myHeading.textContent = 'Mozilla is cool, ' + myName;
-    }
+   function setUserName() {
+  let myName = prompt('Please enter your name.');
+  if(!myName) {
+    setUserName();
+  } else {
+    localStorage.setItem('name', myName);
+    myHeading.innerHTML = 'Mozilla is cool, ' + myName;
+  }
+}
     ```
 
     The `setUserName()` function contains a [`prompt()`](/en-US/docs/Web/API/Window/prompt) function, which displays a dialog box, similar to `alert()`. This `prompt()` function does more than `alert()`, asking the user to enter data, and storing it in a variable after the user clicks _OK._ In this case, we are asking the user to enter a name. Next, the code calls on an API `localStorage`, which allows us to store data in the browser and retrieve it later. We use localStorage's `setItem()` function to create and store a data item called `'name'`, setting its value to the `myName` variable which contains the user's entry for the name. Finally, we set the `textContent` of the heading to a string, plus the user's newly stored name.
